@@ -11,5 +11,5 @@ for i in $(ls . | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2};?)?)?[mGK]//g" | grep 
 done
 
 git add *
-git commit -m "add today's problem"
+git commit -m "add $( date +%d )"
 git push origin "$date"
