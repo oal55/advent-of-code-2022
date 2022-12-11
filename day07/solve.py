@@ -3,6 +3,8 @@ from enum import Enum
 from pathlib import PurePath
 from typing import List, Optional
 
+from utils import read_file
+
 import re
 
 
@@ -88,11 +90,6 @@ class FileTree:
         return all_nodes
 
 
-def read_file(file_name: str) -> List[str]:
-    with open(file_name, 'r') as inpfile:
-        return inpfile.read().splitlines()
-
-
 def process_ls_output(file_tree: 'FileTree', commands: List[str]) -> None:
     while commands and not commands[-1].startswith('$'):
         output_line = commands.pop()
@@ -156,10 +153,9 @@ def part_2(lines: List[str]) -> int:
         if node.type == NodeType.DIRECTORY and node.total_size >= space_to_free_up]
 
     candidate_dirs_to_delete.sort(key=lambda node: node.total_size)
-    print(candidate_dirs_to_delete[0].absolute_path())
     return candidate_dirs_to_delete[0].total_size
 
 
-lines = read_file('input.txt')
+lines = read_file('day07/input.txt')
 print('part1', part_1(lines))  # type: ignore
 print('part2', part_2(lines))  # type: ignore

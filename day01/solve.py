@@ -1,27 +1,32 @@
 from typing import List
 
-
-def read_file(file_name: str) -> List[str]:
-    with open(file_name, 'r') as inpfile:
-        return inpfile.readlines()
+from utils import read_file
 
 
-def create_elf_calories(input_lines: List[str]) -> List[List[int]]:
-    elf_calories: List[List[int]] = []
-    running_ints: List[int] = []
+def create_elf_calories(input_lines: List[str]) -> List[int]:
+    elf_calories: List[int] = []
 
+    sum_for_elf = 0
     for line in input_lines:
-        if line.strip() == '':
-            elf_calories.append(running_ints)
-            running_ints = []
+        if line == '':
+            elf_calories.append(sum_for_elf)
+            sum_for_elf = 0
         else:
-            running_ints.append(int(line))
+            sum_for_elf += int(line)
 
     return elf_calories
 
 
-lines = read_file('./input.txt')
-elf_calories = create_elf_calories(lines)
+def part_1(lines: List[str]) -> int:
+    elf_calories = create_elf_calories(lines)
+    return max(elf_calories)
 
-sums = [sum(calories) for calories in elf_calories]
-print(sum(sorted(sums, reverse=True)[0:3]))
+
+def part_2(lines: List[str]) -> int:
+    elf_calories = create_elf_calories(lines)
+    return sum(sorted(elf_calories, reverse=True)[0:3])
+
+
+lines = read_file('day01/input.txt')
+print('part1', part_1(lines))  # type: ignore
+print('part2', part_2(lines))  # type: ignore

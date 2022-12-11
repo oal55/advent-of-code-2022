@@ -1,6 +1,8 @@
 from dataclasses import dataclass, field
 from typing import ClassVar, Dict, List
 
+from utils import read_file
+
 import re
 
 
@@ -17,11 +19,6 @@ class Operation:
         self.amount = int(amount)
         self.source_stack = src
         self.target_stack = dst
-
-
-def read_file(file_name: str) -> List[str]:
-    with open(file_name, 'r') as inpfile:
-        return inpfile.read().splitlines()
 
 
 def create_initial_stacks(stack_lines: List[str]) -> Dict[str, List[str]]:
@@ -66,7 +63,7 @@ def part_2(lines: List[str]) -> str:
     return read_stack_tops(stacks)
 
 
-lines = read_file('dinput.txt')
+lines = read_file('day05/input.txt')
 
 print('part1', part_1(lines))
 print('part2', part_2(lines))

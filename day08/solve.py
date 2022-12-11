@@ -1,28 +1,8 @@
 from typing import List, Set, Tuple
-from dataclasses import dataclass
+
+from utils import Point2D, read_file
 
 import math
-
-
-@dataclass
-class Point2D:
-    i: int
-    j: int
-
-    def __add__(self, other: 'Point2D') -> 'Point2D':
-        return Point2D(self.i + other.i, self.j + other.j)
-
-    def in_bounding_box(self, north_west: 'Point2D', south_east: 'Point2D') -> bool:
-        return (
-            (north_west.i <= self.i <= south_east.i) and
-            (north_west.j <= self.j <= south_east.j))
-
-
-def read_file(file_name: str) -> List[List[int]]:
-    with open(file_name, 'r') as inpfile:
-        str_lines = inpfile.read().splitlines()
-
-    return [[int(char) for char in row] for row in str_lines]
 
 
 def get_visibility_of_array_from_left(trees: List[int]) -> Set[int]:
@@ -101,7 +81,8 @@ def part_2(forest: List[List[int]]) -> int:
     return best_score
 
 
-forest = read_file('input.txt')
+lines = read_file('day08/input.txt')
+forest = [[int(char) for char in row] for row in lines]
 NORTH_WEST, SOUTH_EAST = Point2D(0, 0), Point2D(len(forest) - 1, len(forest[0]) - 1)
 I, J = len(forest), len(forest[0])
 

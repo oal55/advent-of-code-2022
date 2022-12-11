@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from enum import Enum
-from typing import Dict, Generator, List, Optional, Tuple
+from typing import List, Optional
+
+from utils import divide_into_chunks, read_file
 
 
 class OpName(Enum):
@@ -84,12 +86,6 @@ def get_last_drawn(cpu: CPU) -> str:
     return '.'
 
 
-def divide_into_chunks(items: List, chunk_size: int) -> List[List]:
-    return [
-        items[i:i + chunk_size]
-        for i in range(0, len(items), chunk_size)]
-
-
 def part_2(lines: List[str]) -> str:
     cpu = CPU([Operation.from_line(line) for line in lines])
 
@@ -101,7 +97,7 @@ def part_2(lines: List[str]) -> str:
     return '\n'.join([''.join(row) for row in rows])
 
 
-lines = read_file('input.txt')
+lines = read_file('day10/input.txt')
 print('part1', part_1(lines))
 print('part2', part_2(lines), sep=':\n')
 

@@ -1,6 +1,7 @@
+from collections import deque
 from typing import Dict
 
-from collections import deque
+from utils import read_file
 
 
 class Window:
@@ -24,11 +25,6 @@ class Window:
         self.char_to_count[char] = self.char_to_count.get(char, 0) + 1
 
 
-def read_file(file_name: str) -> str:
-    with open(file_name, 'r') as inpfile:
-        return inpfile.read()
-
-
 def find_start_of_packet(packet_line: str, num_unique_chars: int) -> int:
     window = Window(capacity=num_unique_chars)
     for i, character in enumerate(packet_line):
@@ -47,6 +43,6 @@ def part_2(line: str) -> int:
     return find_start_of_packet(line, 14)
 
 
-line = read_file('input.txt')
+line = read_file('day06/input.txt')[0]
 print('part1', part_1(line))  # type: ignore
 print('part2', part_2(line))  # type: ignore

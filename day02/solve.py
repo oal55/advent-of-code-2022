@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from typing import List
 
+from utils import read_file
+
 
 @dataclass
 class Move:
@@ -35,11 +37,6 @@ def init_moves() -> None:
     for i, move in enumerate(MOVES):
         move.wins_against = MOVES[i - 1] if i else MOVES[len_moves - 1]
         move.loses_to = MOVES[(i + 1) % len_moves]
-
-
-def read_file(file_name: str) -> List[str]:
-    with open(file_name, 'r') as inpfile:
-        return inpfile.read().splitlines()
 
 
 def eval_right_against_left(left: Move, right: Move) -> int:
@@ -81,6 +78,6 @@ def part_2(rounds: List[str]) -> int:
 
 
 init_moves()
-lines = read_file('input.txt')
+lines = read_file('day02/input.txt')
 print('part1', part_1(lines))
 print('part2', part_2(lines))

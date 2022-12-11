@@ -1,36 +1,7 @@
 from dataclasses import dataclass
 from typing import List
 
-
-@dataclass
-class Point2D:
-    i: int
-    j: int
-
-    def __add__(self, other: 'Point2D') -> 'Point2D':
-        return Point2D(self.i + other.i, self.j + other.j)
-
-    def __iadd__(self, other: 'Point2D') -> 'Point2D':
-        return self.__add__(other)
-
-    def __sub__(self, other: 'Point2D') -> 'Point2D':
-        return Point2D(self.i - other.i, self.j - other.j)
-
-    def __hash__(self) -> int:
-        return hash((self.i, self.j))
-
-    def __eq__(self, other: object) -> bool:
-        if not isinstance(other, Point2D):
-            return False
-        return (
-            (self is other) or
-            (self.i == other.i and self.j == other.j))
-
-    def __repr__(self) -> str:
-        return f'({self.i}, {self.j})'
-
-    def distance_to(self, other: 'Point2D') -> int:
-        return max(abs(self.i - other.i), abs(self.j - other.j))
+from utils import Point2D, read_file
 
 
 DIRECTIONS = {
@@ -85,11 +56,6 @@ class Rope:
                 self.knots[i_cur] += self._squish_point(self.knots[i_prev_moved] - self.knots[i_cur])
 
 
-def read_file(file_name: str) -> List[str]:
-    with open(file_name, 'r') as inpfile:
-        return inpfile.read().splitlines()
-
-
 def count_tail_positions_of_rope(rope: Rope, moves: List[Move]) -> int:
     visited_by_tail = {rope.tail}
     for move in moves:
@@ -112,6 +78,6 @@ def part_2(lines: List[str]) -> int:
         Move.from_input_lines(lines))
 
 
-lines = read_file('input.txt')
+lines = read_file('day09/input.txt')
 print('part1', part_1(lines))
 print('part2', part_2(lines))
