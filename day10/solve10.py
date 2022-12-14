@@ -55,11 +55,6 @@ class CPU:
         return None
 
 
-def read_file(file_name: str) -> List[str]:
-    with open(file_name, 'r') as inpfile:
-        return inpfile.read().splitlines()
-
-
 def interesting_cycle(clock: int) -> bool:
     return (clock - 20) % 40 == 0
 
